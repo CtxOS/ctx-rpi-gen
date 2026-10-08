@@ -22,5 +22,5 @@ if [ ! -d "${ROOTFS_DIR}" ] || [ "${USE_QCOW2}" = "1" ]; then
 	if [ ! -e "/usr/share/debootstrap/scripts/${RELEASE}" ]; then
 		ln -sf sid "/usr/share/debootstrap/scripts/${RELEASE}"
 	fi
-	bootstrap ${RELEASE} "${ROOTFS_DIR}" https://deb.ctxos.github.io/ctx
+	bootstrap ${RELEASE} "${ROOTFS_DIR}" https://ctxos.github.io/deb
 fi
