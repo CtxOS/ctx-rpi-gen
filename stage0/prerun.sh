@@ -12,5 +12,10 @@ if [ "${USE_QCOW2}" != "1" ] && [ -d "${ROOTFS_DIR}" ] && [ ! -f "${STAGE_WORK_D
 fi
 
 if [ ! -d "${ROOTFS_DIR}" ]; then
+	mkdir -p "${STAGE_WORK_DIR}"
+	# debootstrap tests that it can create and use device nodes on the
+	# target, which fails when the filesystem is mounted nodev (common
+	# for container volumes and CI filesystems)
+	mount -o remount,dev "$(findmnt -no TARGET -T "${STAGE_WORK_DIR}")" 2>/dev/null || true
 	bootstrap ${RELEASE} "${ROOTFS_DIR}" http://raspbian.raspberrypi.com/raspbian/
 fi
