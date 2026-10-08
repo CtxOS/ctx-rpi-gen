@@ -18,7 +18,8 @@ bootstrap(){
 	BOOTSTRAP_ARGS+=("$@")
 	printf -v BOOTSTRAP_STR '%q ' "${BOOTSTRAP_ARGS[@]}"
 
-	setarch linux32 capsh $CAPSH_ARG -- -c "'${BOOTSTRAP_CMD}' $BOOTSTRAP_STR" || true
+	local BOOTSTRAP_RC=0
+	setarch linux32 capsh $CAPSH_ARG -- -c "'${BOOTSTRAP_CMD}' $BOOTSTRAP_STR" || BOOTSTRAP_RC=$?
 	
 	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1050719
 	rm -f wget-log*
@@ -28,6 +29,11 @@ bootstrap(){
 		log "bootstrap failed: please check ${STAGE_WORK_DIR}/debootstrap.log"
 		return 1
 	fi
+	if [ "${BOOTSTRAP_RC}" -ne 0 ]; then
+		log "bootstrap failed: debootstrap exited with code ${BOOTSTRAP_RC}"
+		return 1
+	fi
+	touch "${STAGE_WORK_DIR}/bootstrap-complete"
 }
 export -f bootstrap
 
