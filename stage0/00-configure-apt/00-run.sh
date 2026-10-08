@@ -20,7 +20,6 @@ else
 	rm -f "${ROOTFS_DIR}/etc/apt/sources.list.d/00-temp.list"
 fi
 
-install -m 644 files/raspberrypi-archive-keyring.pgp "${ROOTFS_DIR}/usr/share/keyrings/"
 on_chroot <<- \EOF
 	ARCH="$(dpkg --print-architecture)"
 	if [ "$ARCH" = "armhf" ]; then
