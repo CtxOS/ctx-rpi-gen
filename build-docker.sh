@@ -82,20 +82,7 @@ fi
 # Modify original build-options to allow config file to be mounted in the docker container
 BUILD_OPTS="$(echo "${BUILD_OPTS:-}" | sed -E 's@\-c\s?([^ ]+)@-c /config@')"
 
-# Check the arch of the machine we're running on. If it's 64-bit, use a 32-bit base image instead
-case "$(uname -m)" in
-  x86_64|aarch64)
-    BASE_IMAGE=docker.io/i386/debian:trixie
-    # Without an explicit platform, Docker 20.10 (Debian 12's docker.io) refuses
-    # the foreign-platform base image: "no matching manifest for linux/amd64"
-    PLATFORM=linux/386
-    ;;
-  *)
-    BASE_IMAGE=docker.io/debian:trixie
-    PLATFORM=""
-    ;;
-esac
-${DOCKER} build ${PLATFORM:+--platform "${PLATFORM}"} --build-arg BASE_IMAGE=${BASE_IMAGE} -t pi-gen "${DIR}"
+${DOCKER} build --build-arg BASE_IMAGE=debian:bookworm -t pi-gen "${DIR}"
 
 if [ "${CONTAINER_EXISTS}" != "" ]; then
   DOCKER_CMDLINE_NAME="${CONTAINER_NAME}_cont"
