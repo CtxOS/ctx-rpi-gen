@@ -147,6 +147,9 @@ for SUITE in "${SUITES[@]}"; do
 		gpg --batch --yes --local-user "${SIGN_KEY}" --digest-algo SHA256 \
 			--armor --detach-sign -o "${RELEASE}.gpg" "${RELEASE}"
 		echo "signed dists/${SUITE} with ${SIGN_KEY}"
+		# public half at repo root: images fetch this as
+		# <mirror>/ctxos-archive-keyring.gpg for signed-by= trust
+		gpg --export "${SIGN_KEY}" > "${OUT_DIR}/ctxos-archive-keyring.gpg"
 	else
 		echo "warning: SIGN_KEY not set; dists/${SUITE} is unsigned" >&2
 	fi
