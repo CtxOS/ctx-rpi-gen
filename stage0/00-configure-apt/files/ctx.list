@@ -1,7 +1,7 @@
-deb https://ctxos.github.io/deb lory main contrib non-free non-free-firmware
-deb https://ctxos.github.io/direct/deb lory-security main contrib non-free non-free-firmware
-deb https://ctxos.github.io/deb lory-updates main contrib non-free non-free-firmware
-#deb https://ctxos.github.io/deb lory-backports main contrib non-free non-free-firmware
+deb [signed-by=/usr/share/keyrings/ctxos-archive-keyring.gpg] https://ctxos.github.io/deb lory main contrib non-free non-free-firmware
+deb [signed-by=/usr/share/keyrings/ctxos-archive-keyring.gpg] https://ctxos.github.io/direct/deb lory-security main contrib non-free non-free-firmware
+deb [signed-by=/usr/share/keyrings/ctxos-archive-keyring.gpg] https://ctxos.github.io/deb lory-updates main contrib non-free non-free-firmware
+#deb [signed-by=/usr/share/keyrings/ctxos-archive-keyring.gpg] https://ctxos.github.io/deb lory-backports main contrib non-free non-free-firmware
 
 ##############################
 ## Source Code Repositories ##
