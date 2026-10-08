@@ -10,8 +10,9 @@ bootstrap(){
 	export http_proxy=${APT_PROXY}
 
 	BOOTSTRAP_ARGS+=(--arch armhf)
+	BOOTSTRAP_ARGS+=(--include gnupg,ctx-archive-keyring,raspberrypi-archive-keyring,raspbian-archive-keyring)
 	BOOTSTRAP_ARGS+=(--components "main,contrib,non-free")
-	BOOTSTRAP_ARGS+=(--keyring "${STAGE_DIR}/files/raspberrypi.gpg")
+	BOOTSTRAP_ARGS+=(--keyring "${STAGE_DIR}/files/ctx.gpg")
 	BOOTSTRAP_ARGS+=(--exclude=info,ifupdown)
 	BOOTSTRAP_ARGS+=(--include=ca-certificates)
 	BOOTSTRAP_ARGS+=("$@")
